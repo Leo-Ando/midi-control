@@ -14,7 +14,7 @@ chord_notes = 1
 
 #リズムの生成
 #original
-M = 32 * 4 * 4
+M = 32 * 4 * 2
 C = [["C", 4]]
 
 #kick
@@ -29,24 +29,22 @@ kick_rhythm_send = generate_percussion_rhythm_send(kick_patterns, kick_rhythm_or
 
 #snare
 snare_patterns = [
-    {'measure': 1, 'tipe': 'ON', 'min': 0, 'MAX': 60, 'quarter_front': 0, 'quarter_back': 0, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 0.5, 'tipe': 'ON', 'min': 1, 'MAX': 3, 'quarter_front': 0, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 0.5, 'tipe': 'ON', 'min': 4, 'MAX': 4, 'quarter_front': 0, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.5, 'thirty_second_back': 0}
+    {'measure': 0.5, 'min': 1, 'MAX': 3,  'quarter_front': 0, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0,   'thirty_second_back': 0},
+    {'measure': 0.5, 'min': 4, 'MAX': 4,  'quarter_front': 0, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.5, 'thirty_second_back': 0}
 ]
-snare_rhythm_order =       [ 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
-snare_rhythm_repetitions = [ 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1,3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 1]
+snare_rhythm_order =       [ 0, 1 ]
+snare_rhythm_repetitions = [ 3, 1 ]
 snare_rhythm_send = generate_percussion_rhythm_send(snare_patterns, snare_rhythm_order, snare_rhythm_repetitions, M)
 
 #click
 click_patterns = [
-    {'measure': 1, 'min': 0, 'MAX': 60, 'quarter_front': 0, 'quarter_back': 0, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 0.25, 'min': 1, 'MAX': 2, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 0.25, 'min': 1, 'MAX': 3, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0.8, 'thirty_second_back': 0},
-    {'measure': 0.25, 'min': 1, 'MAX': 3, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 0.25, 'min': 1, 'MAX': 4, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0.8, 'thirty_second_back': 0}
+    {'measure': 0.25, 'min': 1, 'MAX': 2,  'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
+    {'measure': 0.25, 'min': 1, 'MAX': 3,  'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0.8, 'thirty_second_back': 0},
+    {'measure': 0.25, 'min': 1, 'MAX': 3,  'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
+    {'measure': 0.25, 'min': 1, 'MAX': 4,  'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0.8, 'thirty_second_back': 0}
 ]
-click_rhythm_order = [ 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 3, 4, 3, 4, 3, 4, 3, 4, 4, 3, 4, 3, 4, 3, 4, 3 , 4, 3, 4, 3, 4, 3, 4, 3, 4]
-click_rhythm_repetitions = [ 3, 1, 3, 1, 3, 1, 3, 1 , 3, 1, 3, 1, 3, 1, 3, 1,3, 1, 3, 1, 3, 1, 3, 1,3, 1, 3, 1, 3, 1, 3, 1 , 3, 1, 3, 1, 3, 1 , 3, 1, 3, 1, 3, 1, 3, 1,3, 1, 3, 1, 3, 1, 3, 1]
+click_rhythm_order =       [ 0, 1, 2, 3 ]
+click_rhythm_repetitions = [ 3, 1, 3, 1 ]
 click_rhythm_send = generate_percussion_rhythm_send(click_patterns,  click_rhythm_order, click_rhythm_repetitions, M )
 
 
@@ -54,14 +52,15 @@ click_rhythm_send = generate_percussion_rhythm_send(click_patterns,  click_rhyth
 high_patterns = [
     {'measure': 1, 'min': 3, 'MAX': 5, 'quarter_front': 0, 'quarter_back': 1, 'eighth_back': 0.6, 'sixteenth_back': 0, 'thirty_second_back': 0}]
    
-high_rhythm_order = [0, 0, 0]
-high_rhythm_repetitions = [4, 8, 1]
+high_rhythm_order =       [0]
+high_rhythm_repetitions = [1]
 high_rhythm_send = generate_percussion_rhythm_send(high_patterns, high_rhythm_order, high_rhythm_repetitions, M)
 
 #chord1
 m = 20/2 
 mm = 20/2
 l = 30/2
+
 solo_patterns = [
     {'measure': 1, 'tipe': 'ON', 'min': mm, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
     {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
