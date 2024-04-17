@@ -23,10 +23,9 @@ kick_patterns = [
     {'measure': 0.75,  'min': 2, 'MAX': 3,  'quarter_front': 0.5, 'quarter_back': 0.8, 'eighth_back': 0.3, 'sixteenth_back': 0,   'thirty_second_back': 0},
     {'measure': 0.25,  'min': 1, 'MAX': 1,  'quarter_front': 0.5, 'quarter_back': 0.4, 'eighth_back': 0.3, 'sixteenth_back': 0,   'thirty_second_back': 0},
 ]
-kick_rhythms_list = generate_rhythms_list(kick_patterns) # patternsの１行ずつに対応するリズムが入ったリスト
 kick_rhythm_order =       [ 0, 1, 2, 1, 2, 1, 2, 1, 2]
 kick_rhythm_repetitions = [ 4, 1, 1, 1, 1, 1, 1, 1, 1]
-kick_rhythm_send = generate_percussion_rhythm_send(kick_patterns, kick_rhythms_list, kick_rhythm_order, kick_rhythm_repetitions, M)
+kick_rhythm_send = generate_percussion_rhythm_send(kick_patterns, kick_rhythm_order, kick_rhythm_repetitions, M)
 
 #snare
 snare_patterns = [
@@ -34,12 +33,9 @@ snare_patterns = [
     {'measure': 0.5, 'tipe': 'ON', 'min': 1, 'MAX': 3, 'quarter_front': 0, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0, 'thirty_second_back': 0},
     {'measure': 0.5, 'tipe': 'ON', 'min': 4, 'MAX': 4, 'quarter_front': 0, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.5, 'thirty_second_back': 0}
 ]
-snare_rhythms_list = generate_rhythms_list(snare_patterns)
-# print("snare")
-# print(snare_rhythms)
 snare_rhythm_order =       [ 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
 snare_rhythm_repetitions = [ 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1,3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 1]
-snare_rhythm_send = generate_percussion_rhythm_send(snare_patterns, snare_rhythms_list, snare_rhythm_order, snare_rhythm_repetitions, M)
+snare_rhythm_send = generate_percussion_rhythm_send(snare_patterns, snare_rhythm_order, snare_rhythm_repetitions, M)
 
 #click
 click_patterns = [
@@ -49,24 +45,18 @@ click_patterns = [
     {'measure': 0.25, 'min': 1, 'MAX': 3, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
     {'measure': 0.25, 'min': 1, 'MAX': 4, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0.8, 'thirty_second_back': 0}
 ]
-click_rhythms_list = generate_rhythms_list(click_patterns)
-# print("click")
-# print(click_rhythms)
 click_rhythm_order = [ 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 3, 4, 3, 4, 3, 4, 3, 4, 4, 3, 4, 3, 4, 3, 4, 3 , 4, 3, 4, 3, 4, 3, 4, 3, 4]
 click_rhythm_repetitions = [ 3, 1, 3, 1, 3, 1, 3, 1 , 3, 1, 3, 1, 3, 1, 3, 1,3, 1, 3, 1, 3, 1, 3, 1,3, 1, 3, 1, 3, 1, 3, 1 , 3, 1, 3, 1, 3, 1 , 3, 1, 3, 1, 3, 1, 3, 1,3, 1, 3, 1, 3, 1, 3, 1]
-click_rhythm_send = generate_percussion_rhythm_send(click_patterns, click_rhythms_list, click_rhythm_order, click_rhythm_repetitions, M )
+click_rhythm_send = generate_percussion_rhythm_send(click_patterns,  click_rhythm_order, click_rhythm_repetitions, M )
 
 
 #high
 high_patterns = [
     {'measure': 1, 'min': 3, 'MAX': 5, 'quarter_front': 0, 'quarter_back': 1, 'eighth_back': 0.6, 'sixteenth_back': 0, 'thirty_second_back': 0}]
    
-high_rhythms_list = generate_rhythms_list(high_patterns)
-# print("high")
-# print(high_rhythms)
 high_rhythm_order = [0, 0, 0]
 high_rhythm_repetitions = [4, 8, 1]
-high_rhythm_send = generate_percussion_rhythm_send(high_patterns, high_rhythms_list, high_rhythm_order, high_rhythm_repetitions, M)
+high_rhythm_send = generate_percussion_rhythm_send(high_patterns, high_rhythm_order, high_rhythm_repetitions, M)
 
 #chord1
 m = 20/2 
@@ -90,9 +80,6 @@ solo_patterns = [
     {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
     {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
 ]
-solo_rhythms_list = generate_rhythms_list(solo_patterns)
-# print("chord2")
-# print(chord1_rhythms)
 solo_pitch_order = [    
     "E",
     random.choice(root_notes),
@@ -137,7 +124,7 @@ for i in solo_pitch_order:
 
 solo_rhythm_order =       [0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15]
 solo_rhythm_repetitions = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-solo_rhythm_send = generate_solo_rhythm_send_from_rhythms(solo_patterns, solo_rhythms_list, solo_pitch_order, solo_rhythm_order, solo_rhythm_repetitions, M)
+solo_rhythm_send = generate_solo_rhythm_send_from_rhythms(solo_patterns, solo_pitch_order, solo_rhythm_order, solo_rhythm_repetitions, M)
 
 #chord2
 m = 4
@@ -160,16 +147,10 @@ chord2_patterns = [
     {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
     {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},    
 ]
-chord2_rhythms_list = generate_rhythms_list(chord2_patterns)
-# print("chord2")
-# print(cord2_rhythms)
 chord2_pitch_order = solo_pitch_order
-
-# for i in chord2_pitch_order:
-#     print(i)
 chord2_rhythm_order =       [0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15]
 chord2_rhythm_repetitions = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-chord2_rhythm_send = generate_M_rhythm_send_from_rhythms(chord2_patterns, chord2_rhythms_list, chord2_pitch_order, chord2_rhythm_order, chord2_rhythm_repetitions, M)
+chord2_rhythm_send = generate_M_rhythm_send_from_rhythms(chord2_patterns,  chord2_pitch_order, chord2_rhythm_order, chord2_rhythm_repetitions, M)
 
 #base
 m = 2
@@ -192,14 +173,13 @@ base_patterns = [
     {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
     {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},    
 ]
-base_rhythms_list = generate_rhythms_list(base_patterns)
 # print("chord2")
 # print(chord1_rhythms)
 base_pitch_order =  solo_pitch_order
 
 base_rhythm_order =       [0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15]
 base_rhythm_repetitions = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-base_rhythm_send = generate_M_base_rhythm_send_from_rhythms(base_patterns, base_rhythms_list, base_pitch_order, base_rhythm_order, base_rhythm_repetitions, M)
+base_rhythm_send = generate_M_base_rhythm_send_from_rhythms(base_patterns, base_pitch_order, base_rhythm_order, base_rhythm_repetitions, M)
 
 
 

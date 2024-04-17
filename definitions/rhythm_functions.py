@@ -145,8 +145,9 @@ def generate_rhythm_send_from_rhythms(patterns, rhythms, pitch_order, rhythm_ord
                       
     return rhythm_send[:total_notes]
 
-def generate_percussion_rhythm_send(patterns, rhythms, rhythm_order, rhythm_repetitions, measure):
-    rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms, rhythm_order, rhythm_repetitions)
+def generate_percussion_rhythm_send(patterns, rhythm_order, rhythm_repetitions, measure):
+    rhythms_list = generate_rhythms_list(patterns)# patternsの１行ずつに対応するリズムが入ったリスト
+    rhythms_list_with_note_off = generate_rhythms_list_with_note_off(rhythms_list, rhythm_order, rhythm_repetitions)
     total_notes = int(measure * 32)
     rhythm_send = []
 
@@ -178,8 +179,9 @@ def generate_percussion_rhythm_send(patterns, rhythms, rhythm_order, rhythm_repe
 def generate_M_random_pitch(chord_name):
     return random.choice(McCoy_style_chords[chord_name])
 
-def generate_M_rhythm_send_from_rhythms(patterns, rhythms, pitch_order, rhythm_order, rhythm_repetitions, measure):
-    rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms, rhythm_order, rhythm_repetitions)
+def generate_M_rhythm_send_from_rhythms(patterns, pitch_order, rhythm_order, rhythm_repetitions, measure):
+    rhythms_list = generate_rhythms_list(patterns)
+    rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms_list, rhythm_order, rhythm_repetitions)
     jointed_pitch = generate_jointed_pitch( patterns, rhythm_order, rhythm_repetitions, pitch_order )
     
     total_notes = int(measure * 32)
@@ -230,9 +232,10 @@ def generate_random_pitch(chord_name):
     return random.choice(tones_of_McCoy_style_chord[chord_name])
          
 
-def generate_solo_rhythm_send_from_rhythms(patterns, rhythms, pitch_order, rhythm_order, rhythm_repetitions, measure):
+def generate_solo_rhythm_send_from_rhythms(patterns, pitch_order, rhythm_order, rhythm_repetitions, measure):
     
-    rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms, rhythm_order, rhythm_repetitions)
+    rhythms_list = generate_rhythms_list(patterns)
+    rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms_list, rhythm_order, rhythm_repetitions)
     jointed_pitch = generate_jointed_pitch( patterns, rhythm_order, rhythm_repetitions, pitch_order )
 
     
@@ -321,8 +324,10 @@ def generate_M_base_random_pitch(chord_name):
 
     return M_base
 
-def generate_M_base_rhythm_send_from_rhythms(patterns, rhythms, pitch_order, rhythm_order, rhythm_repetitions, measure):
-    rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms, rhythm_order, rhythm_repetitions)
+def generate_M_base_rhythm_send_from_rhythms(patterns, pitch_order, rhythm_order, rhythm_repetitions, measure):
+    
+    rhythms_list = generate_rhythms_list(patterns)
+    rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms_list, rhythm_order, rhythm_repetitions)
     jointed_pitch = generate_jointed_pitch( patterns, rhythm_order, rhythm_repetitions, pitch_order )
     
     total_notes = int(measure * 32)
