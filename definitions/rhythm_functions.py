@@ -36,20 +36,20 @@ def generate_rhythm(measure, quarter_front, quarter_back, eighth_back, sixteenth
 
     return rhythm
 
-def generate_rhythms(patterns):
-    rhythms = []
+def generate_rhythms_list(patterns):
+    rhythms_list = []
     for pattern in patterns:
         rhythm = generate_rhythm(pattern['measure'], pattern['quarter_front'], pattern['quarter_back'], pattern['eighth_back'], pattern['sixteenth_back'], pattern['thirty_second_back'], pattern['min'], pattern['MAX'])
-        rhythms.append(rhythm)
-    return rhythms
+        rhythms_list.append(rhythm)
+    return rhythms_list
 
 
 # rhythmsをつなげてひと続きのリストにする
-def generate_jointed_rhythms( rhythms, rhythm_order, rhythm_repetitions ):
+def generate_jointed_rhythms( rhythms_list, rhythm_order, rhythm_repetitions ):
     jointed_rhythms = []
     for rhythm_index, repetitions in zip( rhythm_order, rhythm_repetitions ):
         for _ in range(repetitions):
-            jointed_rhythms += rhythms[rhythm_index]
+            jointed_rhythms += rhythms_list[rhythm_index]
     return jointed_rhythms
 
             
@@ -115,7 +115,6 @@ def generate_jointed_pitch( patterns, rhythm_order, rhythm_repetitions, pitch_or
 def generate_rhythm_send_from_rhythms(patterns, rhythms, pitch_order, rhythm_order, rhythm_repetitions, measure):
     rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms, rhythm_order, rhythm_repetitions)
     jointed_pitch = generate_jointed_pitch( patterns, rhythm_order, rhythm_repetitions, pitch_order )
-       
     total_notes = int(measure * 32)
     rhythm_send = []
 
@@ -130,6 +129,35 @@ def generate_rhythm_send_from_rhythms(patterns, rhythms, pitch_order, rhythm_ord
                     midi_note_key = f'{note_name}{octave}'
                     midi_note = note_name_to_midi_note_number_dict[midi_note_key]
                     notes.append(midi_note)
+                rhythm_send.append({"action": "note_on", "note": notes})
+                last_notes = notes
+            elif type == 'off':
+                rhythm_send.append({"action": "note_off", "note": last_notes})
+            elif type == 'sustain':
+                rhythm_send.append({"action": "sustain"})
+            
+          
+            if len(rhythm_send) >= total_notes:
+                break
+
+            if len(rhythm_send) >= total_notes:
+                break
+                      
+    return rhythm_send[:total_notes]
+
+def generate_percussion_rhythm_send(patterns, rhythms, rhythm_order, rhythm_repetitions, measure):
+    rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms, rhythm_order, rhythm_repetitions)
+    total_notes = int(measure * 32)
+    rhythm_send = []
+
+    while len(rhythm_send) < total_notes:
+        for type in rhythms_list_with_note_off:
+           
+            notes = []
+            if type == 'on':
+                midi_note_key = f'C4'
+                midi_note = note_name_to_midi_note_number_dict[midi_note_key]
+                notes.append(midi_note)
                 rhythm_send.append({"action": "note_on", "note": notes})
                 last_notes = notes
             elif type == 'off':
