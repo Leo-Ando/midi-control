@@ -7,6 +7,9 @@
 
 ## rhythms_list_with_note_offの生成
 - **rhythm_orderとrhythm_repetitionsの長さが違う時にどうなるか**
+   - → `短い方のリストに合わせてrhyths_list_with_note_offが生成される`
+     `長い方のリストの長い分は無視される`
+  `generate_jointed_rhythmsのfor文でzipを使っているから`
   
   - orderの方がrepetitionsより長い場合
   - repetitionsの方がorderより長い場合
