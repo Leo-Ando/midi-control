@@ -1,3 +1,6 @@
+rhythm_orderとrhythm_repetitionsから求められる小節数をリズムの長さとする
+song_pitch_measuresから求められる小節数をピッチの長さとする
+
 ## main.pyでのrhythm_orderとrhythm_repetitionsの定義について
 - patternsの要素数よりもorderとrepetitionsの要素数の方が多いとどうなるか
   - `問題ない。多い分だけpatternsのリズムが繰り返される`
@@ -20,10 +23,10 @@
 
 ## jointed_pitchの生成
 - **rhythm_orderとrhythm_repetitionsとpitch_orderの長さが違う時にどうなるか**
-- pitchにもorderとrepetitionsをつける？
-  
-  - order,repetitionsの方がpitchより長い場合
-  - pitchの方がorder,repetitionsより長い場合
+- リズムの長さの方がpitchの長さより長い場合
+  - `リズムの長さの長い分は無視される`
+- pitchの長さの方がリズムの長さより長い場合
+  - `ピッチの長さに達するまでリズムの長さをループする`  
 
 
 ## rhythm_sendの生成
@@ -35,12 +38,15 @@
   - `pitchの長さに達するまでrhythmがループする`
  
 - rhythm_sendはmeasureの正数倍か、jointed_pitchの正数倍か
+  - `measureの長さと等しい。jointed_pitchの整数倍とは限らない。`
+  - `ピッチの長さがmeasureより短い場合は、measureと同じ長さになるまで繰り返される`
+  - `ピッチの長さがmeasureより長い場合は、measureの長さの分だけ生成され、残りは無視される`
 
 ## pitchの定義方法
 - 曲全体を通してpitchを定義できる様にするべき
-
 - pitchを定義するときに、pitchごとの小説数も定義するべきか?
   - その場合、rhythm_orderとrhythm_repetitionsはどうなるか
+  - `リズムとピッチを別のものとして生成し、その後ピッチの長さに合わせてリズムの長さを変える様にした。`
 
 ## pitchのある楽器のpatternsについて
 - patternsの要素数をもっと少なくする
