@@ -19,6 +19,9 @@ from definitions.rhythm_functions import generate_rhythms_list, generate_rhythm_
 ・rhythm_orderとrhythm_repetitionsから求められる小節数（リズムの長さとする）とmeasureが異なる場合。
     リズムの長さの方が短い場合は、measureと同じ長さになるまで繰り返される。
     リズムの長さの方が長い場合は、measureの長さの分だけ生成され、残りは無視される。
+・リズムの長さとpitch_orderの長さが違う時にどうなるか
+    rhythmの方がpitchより長い場合,rhythmの長い部分は無視される
+    pitchの方がrhythmより長い場合,pitchの長さに達するまでrhythmがループする
 
 """
 
