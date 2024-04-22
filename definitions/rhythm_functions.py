@@ -102,40 +102,18 @@ def generate_rhythms_list_with_note_off( rhythms, rhythm_order, rhythm_repetitio
 
             
 # jointed_rhythmに対応するpitchのひとつづきのリストを生成
-def generate_jointed_pitch( patterns, rhythm_order, rhythm_repetitions, pitch_order ):
-    
- # 各リストの長さを取得
-    lengths = [len(rhythm_order), len(rhythm_repetitions), len(pitch_order)]
-    
-    # 最も長いリストを特定
-    max_length_index = lengths.index(max(lengths))
-    # 各リストを適切にイテレータに変換
-    if max_length_index == 0:
-        rhythm_order_iter = rhythm_order
-        rhythm_repetitions_iter = itertools.cycle(rhythm_repetitions)
-        pitch_order_iter = itertools.cycle(pitch_order)
-    elif max_length_index == 1:
-        rhythm_order_iter = itertools.cycle(rhythm_order)
-        rhythm_repetitions_iter = rhythm_repetitions
-        pitch_order_iter = itertools.cycle(pitch_order)
-    else:
-        rhythm_order_iter = itertools.cycle(rhythm_order)
-        rhythm_repetitions_iter = itertools.cycle(rhythm_repetitions)
-        pitch_order_iter = pitch_order
-
+def generate_jointed_pitch( pitch_order, pitch_measures ):
     jointed_pitch = []
-    for rhythm_index, repetitions, pitch in zip( rhythm_order_iter, rhythm_repetitions_iter, pitch_order_iter ):
-        for _ in range(repetitions):
-            pattern = patterns[rhythm_index]
-            for _ in range (int(pattern['measure'] * 32)):
+    for pitch, measure in zip( pitch_order, pitch_measures):
+        for _ in range (measure * 32):
                 jointed_pitch.append(pitch)
     return jointed_pitch
 
 
-def generate_rhythm_send_from_rhythms(patterns, pitch_order, rhythm_order, rhythm_repetitions, measure):
+def generate_rhythm_send_from_rhythms(patterns, rhythm_order, rhythm_repetitions, pitch_order, pitch_measures, measure):
     rhythms_list = generate_rhythms_list(patterns)
     rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms_list, rhythm_order, rhythm_repetitions)
-    jointed_pitch = generate_jointed_pitch( patterns, rhythm_order, rhythm_repetitions, pitch_order )
+    jointed_pitch = generate_jointed_pitch( pitch_order, pitch_measures )
     
     total_notes = int(measure * 32)
     rhythm_send = []
@@ -201,11 +179,10 @@ def generate_percussion_rhythm_send(patterns, rhythm_order, rhythm_repetitions, 
 def generate_M_random_pitch(chord_name):
     return random.choice(McCoy_style_chords[chord_name])
 
-def generate_M_rhythm_send_from_rhythms(patterns, pitch_order, rhythm_order, rhythm_repetitions, measure):
+def generate_M_rhythm_send_from_rhythms(patterns, rhythm_order, rhythm_repetitions, pitch_order, pitch_measures, measure):
     rhythms_list = generate_rhythms_list(patterns)
     rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms_list, rhythm_order, rhythm_repetitions)
-    jointed_pitch = generate_jointed_pitch( patterns, rhythm_order, rhythm_repetitions, pitch_order )
-    
+    jointed_pitch = generate_jointed_pitch( pitch_order, pitch_measures )
     print ( "jointed_pitch", len (jointed_pitch))
     print ( "rhythms_list_with_note_off", len (rhythms_list_with_note_off))
     
@@ -258,11 +235,11 @@ def generate_random_pitch(chord_name):
     return random.choice(tones_of_McCoy_style_chord[chord_name])
          
 
-def generate_solo_rhythm_send_from_rhythms(patterns, pitch_order, rhythm_order, rhythm_repetitions, measure):
+def generate_solo_rhythm_send_from_rhythms(patterns, rhythm_order, rhythm_repetitions, pitch_order,  pitch_measures, measure):
     
     rhythms_list = generate_rhythms_list(patterns)
     rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms_list, rhythm_order, rhythm_repetitions)
-    jointed_pitch = generate_jointed_pitch( patterns, rhythm_order, rhythm_repetitions, pitch_order )
+    jointed_pitch = generate_jointed_pitch( pitch_order, pitch_measures )
     print ( "jointed_pitch", len (jointed_pitch))
     print ( "rhythms_list_with_note_off", len (rhythms_list_with_note_off))
     
@@ -351,11 +328,11 @@ def generate_M_base_random_pitch(chord_name):
 
     return M_base
 
-def generate_M_base_rhythm_send_from_rhythms(patterns, pitch_order, rhythm_order, rhythm_repetitions, measure):
+def generate_M_base_rhythm_send_from_rhythms(patterns, rhythm_order, rhythm_repetitions, pitch_order, pitch_measures, measure):
     
     rhythms_list = generate_rhythms_list(patterns)
     rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms_list, rhythm_order, rhythm_repetitions)
-    jointed_pitch = generate_jointed_pitch( patterns, rhythm_order, rhythm_repetitions, pitch_order )
+    jointed_pitch = generate_jointed_pitch( pitch_order, pitch_measures )
     
     print ( "jointed_pitch", len (jointed_pitch))
     print ( "rhythms_list_with_note_off", len (rhythms_list_with_note_off))

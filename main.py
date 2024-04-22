@@ -8,7 +8,7 @@ from definitions.midi_definitions import send_midi_data
 from definitions.chord_definitions import  root_notes, chromatic_scale_tones
 from definitions.rhythm_functions import generate_rhythms_list, generate_rhythm_send_from_rhythms, generate_percussion_rhythm_send,  generate_solo_rhythm_send_from_rhythms, generate_M_rhythm_send_from_rhythms, generate_M_base_rhythm_send_from_rhythms
 
-chord_notes = 1
+
 
 
 
@@ -20,14 +20,19 @@ chord_notes = 1
     リズムの長さの方が短い場合は、measureと同じ長さになるまで繰り返される。
     リズムの長さの方が長い場合は、measureの長さの分だけ生成され、残りは無視される。
 
-
 """
 
 
 #リズムの生成
 #original
 M = 32 * 4 * 2
-C = [["C", 4]]
+song_pitch_order = [    
+    random.choice(root_notes),
+    random.choice(root_notes),
+    random.choice(root_notes),
+    random.choice(root_notes),
+]
+song_pitch_measures = [3, 1, 3, 1]
 
 #kick
 kick_patterns = [
@@ -74,64 +79,17 @@ mm = 20/2
 l = 30/2
 
 solo_patterns = [
-    {'measure': 1, 'tipe': 'ON', 'min': mm, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': mm, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': mm, 'MAX':l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': mm, 'MAX':l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
+    {'measure': 1, 'min': mm, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
+    {'measure': 1, 'min': m,  'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
+    {'measure': 1, 'min': m,  'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
+    {'measure': 1, 'min': m,  'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.7, 'eighth_back': 0.6, 'sixteenth_back': 0.4, 'thirty_second_back': 0},
 ]
-solo_pitch_order = [    
-    "E",
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-]
+solo_rhythm_order =       [ 0, 1, 2, 3 ]
+solo_rhythm_repetitions = [ 1, 1, 1, 1 ]
+solo_pitch_order = song_pitch_order
+solo_pitch_measures = song_pitch_measures
 
-
-
-solo_rhythm_order =       [0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15]
-solo_rhythm_repetitions = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-solo_rhythm_send = generate_solo_rhythm_send_from_rhythms(solo_patterns, solo_pitch_order, solo_rhythm_order, solo_rhythm_repetitions, M)
+solo_rhythm_send = generate_solo_rhythm_send_from_rhythms(solo_patterns, solo_rhythm_order, solo_rhythm_repetitions, solo_pitch_order, solo_pitch_measures, M)
 
 #chord2
 m = 4
@@ -141,23 +99,12 @@ chord2_patterns = [
     {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
     {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
     {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},    
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.3, 'quarter_back': 0.5, 'eighth_back': 0.5, 'sixteenth_back': 0, 'thirty_second_back': 0},    
 ]
-chord2_pitch_order = solo_pitch_order
-chord2_rhythm_order =       [0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15]
-chord2_rhythm_repetitions = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-chord2_rhythm_send = generate_M_rhythm_send_from_rhythms(chord2_patterns,  chord2_pitch_order, chord2_rhythm_order, chord2_rhythm_repetitions, M)
+chord2_rhythm_order =       [ 0, 1, 2, 3 ]
+chord2_rhythm_repetitions = [ 1, 1, 1, 1 ]
+chord2_pitch_order = song_pitch_order
+chord2_pitch_measures = song_pitch_measures
+chord2_rhythm_send = generate_M_rhythm_send_from_rhythms(chord2_patterns, chord2_rhythm_order, chord2_rhythm_repetitions, chord2_pitch_order, chord2_pitch_measures, M)
 
 #base
 m = 2
@@ -166,27 +113,13 @@ base_patterns = [
     {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
     {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
     {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},    
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},
-    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0},    
+    {'measure': 1, 'tipe': 'ON', 'min': m, 'MAX': l, 'quarter_front': 0.5, 'quarter_back': 0.5, 'eighth_back': 0, 'sixteenth_back': 0, 'thirty_second_back': 0}
 ]
-# print("chord2")
-# print(chord1_rhythms)
-base_pitch_order =  solo_pitch_order
-
-base_rhythm_order =       [0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15]
-base_rhythm_repetitions = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-base_rhythm_send = generate_M_base_rhythm_send_from_rhythms(base_patterns, base_pitch_order, base_rhythm_order, base_rhythm_repetitions, M)
+base_rhythm_order =       [ 0, 1, 2, 3 ]
+base_rhythm_repetitions = [ 1, 1, 1, 1 ]
+base_pitch_order = song_pitch_order
+base_pitch_measures = song_pitch_measures
+base_rhythm_send = generate_M_base_rhythm_send_from_rhythms(base_patterns, base_rhythm_order, base_rhythm_repetitions, base_pitch_order, base_pitch_measures, M)
 
 
 
