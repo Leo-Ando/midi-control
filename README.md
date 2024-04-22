@@ -30,7 +30,11 @@
 - **rhythms_list_with_note_offとjointed_pitchの長さが違う時にどうなるか**
   
   - rhythmの方がpitchより長い場合
+  - `rhythmの長い部分は無視される`
   - pitchの方がrhythmより長い場合
+  - `pitchの長さに達するまでrhythmがループする`
+ 
+- rhythm_sendはmeasureの正数倍か、jointed_pitchの正数倍か
 
 ## pitchの定義方法
 - 曲全体を通してpitchを定義できる様にするべき
