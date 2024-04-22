@@ -3,10 +3,11 @@ import random
 import time
 from pynput.keyboard import Key, Listener
 import threading 
+import itertools
 
 from definitions.midi_definitions import send_midi_data
 from definitions.chord_definitions import  root_notes, chromatic_scale_tones
-from definitions.rhythm_functions import generate_rhythms_list, generate_rhythm_send_from_rhythms, generate_percussion_rhythm_send,  generate_solo_rhythm_send_from_rhythms, generate_M_rhythm_send_from_rhythms, generate_M_base_rhythm_send_from_rhythms
+from definitions.rhythm_functions import generate_jointed_pitch, generate_rhythm_send_from_rhythms, generate_percussion_rhythm_send,  generate_solo_rhythm_send_from_rhythms, generate_M_rhythm_send_from_rhythms, generate_M_base_rhythm_send_from_rhythms
 
 
 
@@ -14,12 +15,12 @@ from definitions.rhythm_functions import generate_rhythms_list, generate_rhythm_
 
 #リズム生成のルール
 """
-・rhythm_orderとrhythm_repetitionsは同じ長さにする。
-    長さが違うと長い方の長い分は無視される。
-・rhythm_orderとrhythm_repetitionsから求められる小節数（リズムの長さとする）とmeasureが異なる場合。
-    リズムの長さの方が短い場合は、measureと同じ長さになるまで繰り返される。
-    リズムの長さの方が長い場合は、measureの長さの分だけ生成され、残りは無視される。
-・リズムの長さとpitch_orderの長さが違う時にどうなるか
+・rhythm_orderとrhythm_repetitionsは同じ長さにする
+    長さが違うと長い方の長い分は無視される
+・rhythm_orderとrhythm_repetitionsから求められる小節数（リズムの長さとする）とmeasureが異なる場合
+    リズムの長さの方が短い場合は、measureと同じ長さになるまで繰り返される
+    リズムの長さの方が長い場合は、measureの長さの分だけ生成され、残りは無視される
+・リズムの長さとpitch_orderの長さが異なる場合
     rhythmの方がpitchより長い場合,rhythmの長い部分は無視される
     pitchの方がrhythmより長い場合,pitchの長さに達するまでrhythmがループする
 
@@ -28,15 +29,13 @@ from definitions.rhythm_functions import generate_rhythms_list, generate_rhythm_
 
 #リズムの生成
 #original
-M = 32 * 4 * 2
+M = 8
 song_pitch_order = [    
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
-    random.choice(root_notes),
+  "A","B","C","D"
 ]
 song_pitch_measures = [3, 1, 3, 1]
-
+jointed_pitch = generate_jointed_pitch(song_pitch_order, song_pitch_measures)
+cycle_pitches = itertools.cycle(jointed_pitch)
 #kick
 kick_patterns = [
     {'measure': 1,     'min': 0, 'MAX': 6,  'quarter_front': 0.8, 'quarter_back': 0.3, 'eighth_back': 0.3, 'sixteenth_back': 0.3, 'thirty_second_back': 0},
@@ -355,8 +354,7 @@ with ExitStack() as stack: #開くmidiポートを定義
                 
             # キーに基づいてairphoneを転調
             with airphone_shiftLock:
-                index = i // (32 * 1)
-                key = solo_pitch_order[index]
+                key = next(cycle_pitches)
                 print(key)
                 airphone_shift = chromatic_scale_tones.index(key)
                  
