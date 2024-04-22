@@ -1,22 +1,26 @@
 ## main.pyでのrhythm_orderとrhythm_repetitionsの定義について
 - patternsの要素数よりもorderとrepetitionsの要素数の方が多いとどうなるか
+  - `問題ない。多い分だけpatternsのリズムが繰り返される`
   
 - orderの要素数とrepetittionsの要素数が違うとどうなるか
+  - `リストの長さが短い方に合わせてリズムが作られ、長い方の長い分は無視される。`
+ 
+- rhythm_orderとrhythm_repetitionsから求められる小節数がmeasureと異なるとどうなるか
+  - `求められる小説数の方が短い場合は、measureと同じ長さになるまで繰り返される。`
+  - `求められる小節数の方が長い場合は、measureの長さの分だけ生成され、残りは無視される。`
 
 - orderとrepetitionsの決め方のルールを書くべき
 
 ## rhythms_list_with_note_offの生成
 - **rhythm_orderとrhythm_repetitionsの長さが違う時にどうなるか**
-   - → `短い方のリストに合わせてrhyths_list_with_note_offが生成される`
+   - `短い方のリストに合わせてrhyths_list_with_note_offが生成される`
      `長い方のリストの長い分は無視される`
   `generate_jointed_rhythmsのfor文でzipを使っているから`
-  
-  - orderの方がrepetitionsより長い場合
-  - repetitionsの方がorderより長い場合
 
 
 ## jointed_pitchの生成
 - **rhythm_orderとrhythm_repetitionsとpitch_orderの長さが違う時にどうなるか**
+- pitchにもorderとrepetitionsをつける？
   
   - order,repetitionsの方がpitchより長い場合
   - pitchの方がorder,repetitionsより長い場合
