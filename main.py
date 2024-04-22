@@ -12,6 +12,18 @@ chord_notes = 1
 
 
 
+#リズム生成のルール
+"""
+・rhythm_orderとrhythm_repetitionsは同じ長さにする。
+    長さが違うと長い方の長い分は無視される。
+・rhythm_orderとrhythm_repetitionsから求められる小節数（リズムの長さとする）とmeasureが異なる場合。
+    リズムの長さの方が短い場合は、measureと同じ長さになるまで繰り返される。
+    リズムの長さの方が長い場合は、measureの長さの分だけ生成され、残りは無視される。
+
+
+"""
+
+
 #リズムの生成
 #original
 M = 32 * 4 * 2
@@ -114,10 +126,6 @@ solo_pitch_order = [
     random.choice(root_notes),
     random.choice(root_notes),
 ]
-
-
-for i in solo_pitch_order:
-    print(chromatic_scale_tones[(chromatic_scale_tones.index(i) + 8) % len(chromatic_scale_tones)])
 
 
 

@@ -104,11 +104,27 @@ def generate_rhythms_list_with_note_off( rhythms, rhythm_order, rhythm_repetitio
 # jointed_rhythmに対応するpitchのひとつづきのリストを生成
 def generate_jointed_pitch( patterns, rhythm_order, rhythm_repetitions, pitch_order ):
     
-    print(len(rhythm_order), len(rhythm_repetitions), len(pitch_order))
+ # 各リストの長さを取得
+    lengths = [len(rhythm_order), len(rhythm_repetitions), len(pitch_order)]
+    
+    # 最も長いリストを特定
+    max_length_index = lengths.index(max(lengths))
+    # 各リストを適切にイテレータに変換
+    if max_length_index == 0:
+        rhythm_order_iter = rhythm_order
+        rhythm_repetitions_iter = itertools.cycle(rhythm_repetitions)
+        pitch_order_iter = itertools.cycle(pitch_order)
+    elif max_length_index == 1:
+        rhythm_order_iter = itertools.cycle(rhythm_order)
+        rhythm_repetitions_iter = rhythm_repetitions
+        pitch_order_iter = itertools.cycle(pitch_order)
+    else:
+        rhythm_order_iter = itertools.cycle(rhythm_order)
+        rhythm_repetitions_iter = itertools.cycle(rhythm_repetitions)
+        pitch_order_iter = pitch_order
+
     jointed_pitch = []
-    cycled_repetitions = itertools.cycle(rhythm_repetitions)
-    cycled_index = itertools.cycle(rhythm_order)
-    for rhythm_index, repetitions, pitch in zip( cycled_index, cycled_repetitions , pitch_order ):
+    for rhythm_index, repetitions, pitch in zip( rhythm_order_iter, rhythm_repetitions_iter, pitch_order_iter ):
         for _ in range(repetitions):
             pattern = patterns[rhythm_index]
             for _ in range (int(pattern['measure'] * 32)):
@@ -120,6 +136,7 @@ def generate_rhythm_send_from_rhythms(patterns, pitch_order, rhythm_order, rhyth
     rhythms_list = generate_rhythms_list(patterns)
     rhythms_list_with_note_off = generate_rhythms_list_with_note_off( rhythms_list, rhythm_order, rhythm_repetitions)
     jointed_pitch = generate_jointed_pitch( patterns, rhythm_order, rhythm_repetitions, pitch_order )
+    
     total_notes = int(measure * 32)
     rhythm_send = []
 
@@ -177,7 +194,7 @@ def generate_percussion_rhythm_send(patterns, rhythm_order, rhythm_repetitions, 
             if len(rhythm_send) >= total_notes:
                 break
             
-    print(total_notes, len(rhythm_send))       
+    print("percussion", total_notes, len(rhythm_send))       
     return rhythm_send[:total_notes]
 
 
